@@ -1,3 +1,6 @@
+algs4/libs
+
+.DS_Store
 *.class
 
 # Package Files #
