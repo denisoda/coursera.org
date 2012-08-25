@@ -31,10 +31,10 @@ public class Percolation {
   }
 
   // open site (row i, column j) if it is not already
-  public void open(int i, int j) {
-    //-- Change indexes to start at 1, not 0
-    i--;
-    j--;
+  public void open(int iOne, int jOne) {
+    // Change indexes to start at 1, not 0
+    int i = iOne - 1;
+    int j = jOne - 1;
 
     int index = getIndex(i, j);
 
@@ -56,11 +56,11 @@ public class Percolation {
       if (0 == i) {
         uf.union(index, topIndex);
       }
-      if ( hasN ) {
+      if (hasN) {
         // check if this made any of the bottom nodes connected
         // to the top
         for (int b = gridSize-1; b > gridSize-rowLen; b--) {
-          if ( isOpen(b) && uf.connected(topIndex, b) ) {
+          if (isOpen(b) && uf.connected(topIndex, b)) {
             uf.union(b, bottomIndex);
             break;
           }
@@ -85,8 +85,10 @@ public class Percolation {
    *
    */
   private int getNeighborIndex(int i, int j, int d) {
-    if ( 0 > d || 3 < d ) {
-      throw new java.lang.IllegalArgumentException("Direction must be between 0 and 3");
+    if (0 > d || 3 < d) {
+      throw new java.lang.IllegalArgumentException(
+          "Direction must be between 0 and 3"
+      );
     }
     switch (d) {
       case 0:  // UP
@@ -121,20 +123,14 @@ public class Percolation {
 
   // is site (row i, column j) open?
   public boolean isOpen(int i, int j) {
-    //-- Change indexes to start at 1, not 0
-    i--;
-    j--;
-
-    return isOpen(getIndex(i, j));
+    // Change indexes to start at 1, not 0
+    return isOpen(getIndex(i-1, j-1));
   }
 
   // is site (row i, column j) full?
   public boolean isFull(int i, int j) {
-    //-- Change indexes to start at 1, not 0
-    i--;
-    j--;
-
-    return uf.connected(topIndex, getIndex(i, j));
+    // Change indexes to start at 1, not 0
+    return uf.connected(topIndex, getIndex(i-1, j-1));
   }
 
   // does the system percolate?
