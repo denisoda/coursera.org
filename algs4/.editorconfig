@@ -1,0 +1,6 @@
+; EditorConfig is awesome: http://EditorConfig.org
+root = true  ; top-most EditorConfig file
+
+[*.java]
+indent_style = space
+indent_size = 4
