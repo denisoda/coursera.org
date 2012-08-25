@@ -33,6 +33,10 @@ public class Percolation {
 
   // open site (row i, column j) if it is not already
   public void open(int i, int j) {
+    //-- Change indexes to start at 1, not 0
+    i--;
+    j--;
+
     int index = getIndex(i, j);
 
     if (!grid[index]) {
@@ -104,12 +108,20 @@ public class Percolation {
 
   // is site (row i, column j) open?
   public boolean isOpen(int i, int j) {
+    //-- Change indexes to start at 1, not 0
+    i--;
+    j--;
+
     return isOpen(getIndex(i, j));
   }
 
   // is site (row i, column j) full?
   public boolean isFull(int i, int j) {
-    return !isOpen(i, j);
+    //-- Change indexes to start at 1, not 0
+    i--;
+    j--;
+
+    return uf.connected(topIndex, getIndex(i, j));
   }
 
   // does the system percolate?
@@ -119,12 +131,12 @@ public class Percolation {
 
   public static void main(String[] args) {
     Percolation p = new Percolation(4);
-    p.open(0, 0);
-    p.open(1, 0);
     p.open(1, 1);
     p.open(2, 1);
     p.open(2, 2);
     p.open(3, 2);
+    p.open(3, 3);
+    p.open(4, 3);
   }
 
 
