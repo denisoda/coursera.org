@@ -43,22 +43,25 @@ public class Percolation {
 
       // If the spot we just opened has any open neighbors, connect them
       int n; // Neighbor's index
+      boolean hasN = false;
       for (int d = 0; d < 4; d++) {
         n = getNeighborIndex(i, j, d);
         if (-1 != n && isOpen(n)) {
           uf.union(index, n);
+          hasN = true;
         }
       }
 
       // If it is in the top row, connect it with the top node
       if (0 == i) {
         uf.union(index, topIndex);
-      } else {
+      }
+      if ( hasN ) {
         // check if this made any of the bottom nodes connected
         // to the top
-        for (int b = rowLen*(rowLen-1); b < gridSize; b++) {
-          if ( uf.connected(topIndex, b) ) {
-            uf.union(index, bottomIndex);
+        for (int b = gridSize-1; b > gridSize-rowLen; b--) {
+          if ( isOpen(b) && uf.connected(topIndex, b) ) {
+            uf.union(b, bottomIndex);
             break;
           }
         }
