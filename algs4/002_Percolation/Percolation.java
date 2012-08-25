@@ -15,14 +15,13 @@ public class Percolation {
   private int rowLen;
   private int topIndex;
   private int bottomIndex;
+  private int gridSize;
   private boolean[] grid;
 
   private WeightedQuickUnionUF uf;
 
   // create N-by-N grid, with all sites blocked
   public Percolation(int N) {
-    int gridSize;
-
     rowLen = N;
     gridSize = N*N;
     uf = new WeightedQuickUnionUF(gridSize + 2);
@@ -41,12 +40,6 @@ public class Percolation {
 
     if (!grid[index]) {
       grid[index] = true;
-      // If it is in the top or bottom row, connect it with the top or bottom node
-      if (0 == i) {
-        uf.union(index, topIndex);
-      } else if (rowLen-1 == i) {
-        uf.union(index, bottomIndex);
-      }
 
       // If the spot we just opened has any open neighbors, connect them
       int n; // Neighbor's index
@@ -54,6 +47,20 @@ public class Percolation {
         n = getNeighborIndex(i, j, d);
         if (-1 != n && isOpen(n)) {
           uf.union(index, n);
+        }
+      }
+
+      // If it is in the top row, connect it with the top node
+      if (0 == i) {
+        uf.union(index, topIndex);
+      } else {
+        // check if this made any of the bottom nodes connected
+        // to the top
+        for (int b = rowLen*(rowLen-1); b < gridSize; b++) {
+          if ( uf.connected(topIndex, b) ) {
+            uf.union(index, bottomIndex);
+            break;
+          }
         }
       }
     }
