@@ -82,6 +82,9 @@ public class Percolation {
    *
    */
   private int getNeighborIndex(int i, int j, int d) {
+    if ( 0 > d || 3 < d ) {
+      throw new java.lang.IllegalArgumentException("Direction must be between 0 and 3");
+    }
     switch (d) {
       case 0:  // UP
         if (0 == i) {
