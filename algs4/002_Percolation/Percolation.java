@@ -1,26 +1,16 @@
 /*----------------------------------------------------------------
  *  Author:        Matt Farmer
  *  Written:       08/17/2012
- *  Last updated:  08/17/2012
+ *  Last updated:  08/25/2012
  *
  *  Compilation:   javac Percolation.java
- *  TODO:  Update Execution with real example
  *  Execution:     java Percolation
  *
- *  TODO:  Better description
  *  Tests the percolation as per the specification available at:
  *    http://coursera.cs.princeton.edu/algs4/assignments/percolation.html
  *
- *  TODO:  Provide real example
- *  % java Percolation 100 200
- *  Example Output
- *  Example Output
- *  Example Output
- *
  *----------------------------------------------------------------*/
 public class Percolation {
-
-  private static final boolean DEBUG = false;
 
   private int rowLen;
   private int topIndex;
@@ -39,29 +29,6 @@ public class Percolation {
     grid = new boolean[gridSize];
     topIndex = gridSize;
     bottomIndex = gridSize + 1;
-    if (DEBUG) {
-      print();
-    }
-  }
-
-  // FIXME:  Delete this function
-  public void print() {
-    if (DEBUG) {
-      for (int i = 0; i < rowLen; i++) {
-        for (int j = 0; j < rowLen; j++) {
-          if (isOpen(i, j)) {
-            StdOut.print(" ");
-          } else {
-            StdOut.print("X");
-          }
-        }
-        StdOut.println();
-      }
-      StdOut.print("Percolates: ");
-      StdOut.println(percolates());
-      StdOut.println();
-    }
-    return;
   }
 
   // open site (row i, column j) if it is not already
@@ -86,10 +53,6 @@ public class Percolation {
         }
       }
     }
-    //     uf.union(i*j);
-    if (DEBUG) {
-      print();
-    }
   }
 
   private int getIndex(int i, int j) {
@@ -103,7 +66,7 @@ public class Percolation {
    * @param (int) j the index
    * @param (int) d the direction of the neighbor:
    *                  0 = UP, 1 = RIGHT, 2 = DOWN, 3 = LEFT
-   * 
+   *
    * @return (int) the index of the neighbor or -1 if it is out of bounds
    *
    */
@@ -162,22 +125,7 @@ public class Percolation {
     p.open(2, 1);
     p.open(2, 2);
     p.open(3, 2);
-    /*
-       int N = StdIn.readInt();
-       QuickFindUF uf = new QuickFindUF(N);
-
-    // read in a sequence of pairs of integers (each in the range 0 to N-1),
-    // calling find() for each pair: If the members of the pair are not already
-    // call union() and print the pair.
-    while (!StdIn.isEmpty()) {
-    int p = StdIn.readInt();
-    int q = StdIn.readInt();
-    if (uf.connected(p, q)) continue;
-    uf.union(p, q);
-    StdOut.println(p + " " + q);
-    }
-    StdOut.println("# components: " + uf.count());
-    */
   }
+
 
 }
