@@ -34,9 +34,9 @@ public class Percolation {
   // open site (row i, column j) if it is not already
   public void open(int i, int j) {
     int index = getIndex(i, j);
-    if (grid[index]) {
-      grid[index] = true;
 
+    if (!grid[index]) {
+      grid[index] = true;
       // If it is in the top or bottom row, connect it with the top or bottom node
       if (0 == i) {
         uf.union(index, topIndex);
