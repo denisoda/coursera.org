@@ -22,6 +22,11 @@ public class Percolation {
 
     // create N-by-N grid, with all sites blocked
     public Percolation(int N) {
+        if (N <= 0) {
+            throw new java.lang.IllegalArgumentException(
+                "N must be larger than 0"
+            );
+        }
         rowLen = N;
         gridSize = N*N;
         uf = new WeightedQuickUnionUF(gridSize + 2);
@@ -30,8 +35,23 @@ public class Percolation {
         bottomIndex = gridSize + 1;
     }
 
+    private void checkInput(int i, int j) {
+        if (1 > i || rowLen < i) {
+            throw new java.lang.IndexOutOfBoundsException(
+                "i must be between 1 and "+ rowLen
+            );
+        }
+        if (1 > j || rowLen < j) {
+            throw new java.lang.IndexOutOfBoundsException(
+                "j must be between 1 and "+ rowLen
+            );
+        }
+    }
+
     // open site (row i, column j) if it is not already
     public void open(int iOne, int jOne) {
+        checkInput(iOne, jOne);
+
         // Change indexes to start at 1, not 0
         int i = iOne - 1;
         int j = jOne - 1;
@@ -87,8 +107,8 @@ public class Percolation {
     private int getNeighborIndex(int i, int j, int d) {
         if (0 > d || 3 < d) {
             throw new java.lang.IllegalArgumentException(
-                    "Direction must be between 0 and 3"
-                    );
+                "Direction must be between 0 and 3"
+            );
         }
         switch (d) {
             case 0:  // UP
@@ -123,12 +143,16 @@ public class Percolation {
 
     // is site (row i, column j) open?
     public boolean isOpen(int i, int j) {
+        checkInput(i, j);
+
         // Change indexes to start at 1, not 0
         return isOpen(getIndex(i-1, j-1));
     }
 
     // is site (row i, column j) full?
     public boolean isFull(int i, int j) {
+        checkInput(i, j);
+
         // Change indexes to start at 1, not 0
         return uf.connected(topIndex, getIndex(i-1, j-1));
     }
