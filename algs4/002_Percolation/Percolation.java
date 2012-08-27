@@ -79,7 +79,7 @@ public class Percolation {
             if (hasN) {
                 // check if this made any of the bottom nodes connected
                 // to the top
-                for (int b = gridSize-1; b > gridSize-rowLen; b--) {
+                for (int b = gridSize-1; b >= gridSize-rowLen; b--) {
                     if (isOpen(b) && uf.connected(topIndex, b)) {
                         uf.union(b, bottomIndex);
                         break;
