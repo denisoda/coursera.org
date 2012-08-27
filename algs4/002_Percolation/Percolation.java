@@ -17,6 +17,7 @@ public class Percolation {
     private int bottomIndex;
     private int gridSize;
     private boolean[] grid;
+    private boolean percolates;
 
     private WeightedQuickUnionUF uf;
 
@@ -161,7 +162,10 @@ public class Percolation {
 
     // does the system percolate?
     public boolean percolates() {
-        return uf.connected(topIndex, bottomIndex);
+        if (!percolates) {
+            percolates = uf.connected(topIndex, bottomIndex);
+        }
+        return percolates;
     }
 
     public static void main(String[] args) {
