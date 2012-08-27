@@ -85,6 +85,8 @@ public class Percolation {
                         break;
                     }
                 }
+            } else if (1 == gridSize) {
+                uf.union(index, bottomIndex);
             }
         }
     }
